@@ -38,7 +38,6 @@ function getNestedChildren(arr, parent = 0) {
         return {
             ...item,
             key: item.id,
-            // title: `<${item.title}/>`
             title: newTitle
         }
     })

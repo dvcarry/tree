@@ -1,30 +1,40 @@
 import React, { useState } from 'react'
-import { Button, Modal, Form, Input, Radio } from 'antd';
+import { Button, Modal, Form, Input, Radio, Tree } from 'antd';
+import { makeKeysForArray } from './../helpers/functions';
 
-export const Catalog = () => {
-
+export const Catalog = ({catalog}) => {
+    console.log('cataloggg', catalog)
     const [modal, setModal] = useState(false)
+    const treeData = makeKeysForArray(catalog)
+
+    console.log('treeeee', treeData)
 
     return (
         <div>
+            <Tree
+                treeData={treeData}
+                showLine
+                draggable
+            />
             <button onClick={() => setModal(true)}>Add</button>
+
             <Modal
                 visible={modal}
                 title="Create a new collection"
                 okText="Create"
                 cancelText="Cancel"
-                // onCancel={onCancel}
-                // onOk={() => {
-                //     form
-                //         .validateFields()
-                //         .then(values => {
-                //             form.resetFields();
-                //             onCreate(values);
-                //         })
-                //         .catch(info => {
-                //             console.log('Validate Failed:', info);
-                //         });
-                // }}
+            // onCancel={onCancel}
+            // onOk={() => {
+            //     form
+            //         .validateFields()
+            //         .then(values => {
+            //             form.resetFields();
+            //             onCreate(values);
+            //         })
+            //         .catch(info => {
+            //             console.log('Validate Failed:', info);
+            //         });
+            // }}
             >
                 <Form
                     // form={form}
