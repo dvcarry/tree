@@ -1,13 +1,33 @@
-import React, { useState } from 'react'
-import { Button, Modal, Form, Input, Radio, Tree } from 'antd';
+import React, { useState, useEffect } from 'react'
+import { Tree } from 'antd';
 import { makeKeysForArray } from './../helpers/functions';
+import { AddItemForm } from './AddItemForm'
+import { fetchAddNewItemToProject } from '../helpers/API';
 
-export const Catalog = ({catalog}) => {
-    console.log('cataloggg', catalog)
+export const Catalog = ({ catalog, selectNode, addNewItem, addToProject, deleteFromCatalog }) => {
+
     const [modal, setModal] = useState(false)
-    const treeData = makeKeysForArray(catalog)
+    const [treeData, setTreeData] = useState([])
 
-    console.log('treeeee', treeData)
+    // const newCatalog = makeKeysForArray(catalog)
+    // setTreeData(newCatalog)
+    
+    useEffect(() => {
+        const newCatalog = makeKeysForArray(catalog)
+        setTreeData(newCatalog)
+    }, [catalog])
+
+    // const treeData = makeKeysForArray(catalog)
+
+    const onSelect = (selectedKeys, info) => {
+        selectNode(info.node.id)
+    };
+
+    const onCreate = values => {
+        setModal(false);
+        addNewItem(values)
+    };
+
 
     return (
         <div>
@@ -15,52 +35,21 @@ export const Catalog = ({catalog}) => {
                 treeData={treeData}
                 showLine
                 draggable
+                onSelect={onSelect}
+                selectedKeys={['19']}
+                defaultSelectedKeys={['19']}
             />
+
             <button onClick={() => setModal(true)}>Add</button>
+            <button onClick={addToProject}>To project</button>
+            <button onClick={deleteFromCatalog}>Delete</button>
 
-            <Modal
+            <AddItemForm
                 visible={modal}
-                title="Create a new collection"
-                okText="Create"
-                cancelText="Cancel"
-            // onCancel={onCancel}
-            // onOk={() => {
-            //     form
-            //         .validateFields()
-            //         .then(values => {
-            //             form.resetFields();
-            //             onCreate(values);
-            //         })
-            //         .catch(info => {
-            //             console.log('Validate Failed:', info);
-            //         });
-            // }}
-            >
-                <Form
-                    // form={form}
-                    layout="vertical"
-                    name="form_in_modal"
-                    initialValues={{ modifier: 'public' }}
-                >
-                    <Form.Item
-                        name="title"
-                        label="Title"
-                        rules={[{ required: true, message: 'Please input the title of collection!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name="description" label="Description">
-                        <Input type="textarea" />
-                    </Form.Item>
-                    <Form.Item name="modifier" className="collection-create-form_last-form-item">
-                        <Radio.Group>
-                            <Radio value="public">Public</Radio>
-                            <Radio value="private">Private</Radio>
-                        </Radio.Group>
-                    </Form.Item>
-                </Form>
-
-            </Modal>
+                onCreate={onCreate}
+                onCancel={() => {
+                    setModal(false);
+                }} />
         </div>
     )
 }

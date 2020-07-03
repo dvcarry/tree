@@ -3,3 +3,12 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+
+.test {
+  border: 1px solid black;
+}
+.garage {
+  margin: 50px 0;
+  height: 300px;
+  border: 1px solid grey;
+}

@@ -16,7 +16,18 @@ export const makeNestedChildren = (arr, parent = 0) => {
     }
     const newOut = out.map(item => {
         
-        const newTitle = item.type === 'page' ? item.title.toUpperCase() : `<${item.title}/>`
+        let newTitle =''
+
+        if (item.type === 'page') {
+            newTitle = item.title.toUpperCase()
+        } 
+        else if (item.type === 'component') {
+            newTitle = `<${item.title}/>`
+        } else {
+            newTitle = item.title
+        }       
+        
+        // = item.type === 'page' ? item.title.toUpperCase() : `<${item.title}/>`
         
         return {
             ...item,
@@ -29,8 +40,16 @@ export const makeNestedChildren = (arr, parent = 0) => {
     return newOut
 }
 
+export const makeDepoNode = (array) => {
+    const depoNode = { id: 999999999, title: '-DEPO-', type: 'depo', parent: 0 }
+    return [...array, depoNode]
+}
+
 export const makeKeysForArray = array => {
-    console.log('wwww', array)
+
+// console.log("array", array)
+
+
     const fakeArray = [{id: 1, title: 'PAGES', parent: 0}, {id: 2, title: 'COMPONENTS', parent: 0}, {id: 3, title: 'DATA', parent: 0}]
     
     const indexes = {
@@ -39,17 +58,22 @@ export const makeKeysForArray = array => {
         data: 3
     }    
     
-    const reallyArray = array.map(item => {
-        return {
-            ...item,
-            key: item.id,
-            parent: indexes[item.type]
-        }
-    })
+    let reallyArray = []
+    
+    if (array.length > 0) {
+        reallyArray = array.map(item => {
+            return {
+                ...item,
+                key: item.id,
+                parent: indexes[item.type]
+            }
+        })
+    }
+
 
     const resultArray = [...fakeArray, ...reallyArray]
 
-    console.log('resulttt', resultArray)
+    // console.log('resulttt', resultArray)
 
     const result = makeNestedChildren(resultArray)
 
