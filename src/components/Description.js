@@ -1,17 +1,39 @@
 import React from 'react'
 import { Tag } from 'antd'
+import { useDrop } from 'react-dnd'
+import { Render } from './Render'
 
-export const Description = ({ selectedNode }) => {
+export const Description = ({ selectedNode, addToProject, allElements }) => {
+console.log("Description -> allElements", allElements)
 
     // const { title, type } = selectedNode
 
-    console.log(selectedNode)
+    console.log(allElements)
+
+    const [collectedProps, drop] = useDrop({
+        accept: ['element', 'component'],
+        drop: item => {
+        console.log("Description -> item", item)
+            
+            // addCar(item.title)
+        }
+      })
+    
+    let renderElements = null
+    if (allElements && allElements.length > 0) {
+        renderElements = allElements.filter(item => item.type === 'element' || item.type === 'component')
+        console.log("Description -> renderElements", renderElements)
+    }
+
 
     return (
         <div>
             <h2>{selectedNode && selectedNode.title}</h2>
             <Tag color="success">{selectedNode && selectedNode.type}</Tag>
             <p>{selectedNode && selectedNode.description}</p>
+            <h3>Render</h3>
+            {/* <div className="render field" ref={drop}></div> */}
+            <Render renderElements={renderElements}/>
 
         </div>
     )

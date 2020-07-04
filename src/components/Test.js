@@ -1,9 +1,9 @@
 import React from 'react'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+
 import { Card } from 'antd'
-import { Car } from './Car'
+import { Car } from './Item'
 import { Garage } from './Garage'
+import { Description } from './Description'
 
 
 export const Test = () => {
@@ -13,14 +13,16 @@ export const Test = () => {
     const cars = carsArray.map(item => <Car title={`Car #${item}`}/>)
     
     return (
-        <DndProvider backend={HTML5Backend}>
+
             <div>
                 {/* <Car title={'wwww'}/>
                 <Car title={'dddd'}/> */}
-                {cars}
-                <Garage />
+                {/* {cars} */}
+                {/* <Garage /> */}
+                <Description />
             </div>
+            
                 
-        </DndProvider>
+
     )
 }

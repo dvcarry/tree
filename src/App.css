@@ -9,6 +9,22 @@
 }
 .garage {
   margin: 50px 0;
-  height: 300px;
+  height: 50px;
   border: 1px solid grey;
+}
+
+.field {
+  border-radius: 3px;
+  border: 1px solid gray;
+  height: 200px;
+}
+
+.item {
+  padding: 3px 5px;
+  width: 100%;
+  border: none;
+}
+
+.item:hover {
+  font-weight: 500;
 }

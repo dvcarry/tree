@@ -1,23 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import './App.css';
-import { TreeComp } from './components/Tree';
 import { Catalog } from './components/Catalog';
 import { Description } from './components/Description';
 import { fetchGetCatalog, fetchAddNewItemToCatalog, fetchAddNewItemToProject, fetchGetProject, fetchDeleteFromCatalog, fetchDeleteFromProject } from './helpers/API';
-import { Test } from './components/Test';
-
-
-// const array = [
-//   { id: 1, title: 'hello1', type: 'page', parent: 0 },
-//   { id: 2, title: 'hello2', type: 'page', parent: 0 },
-//   { id: 3, title: 'hello3', type: 'component', parent: 1 },
-//   { id: 4, title: 'hello4', type: 'component', parent: 1 },
-//   { id: 5, title: 'hello5', type: 'component', parent: 1 },
-//   { id: 6, title: 'hello6', type: 'component', parent: 2 },
-//   { id: 7, title: 'hello7', type: 'component', parent: 2 },
-//   { id: 8, title: 'hello8', type: 'component', parent: 2 }
-// ]
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 
 function App() {
@@ -26,6 +14,7 @@ function App() {
   console.log("App -> selectedNode", selectedNode)
   const [catalog, setCatalog] = useState([])
   const [project, setProject] = useState([])
+  const [itemsSelectedNode, setItemsSelectedNode] = useState(null)
 
 
 
@@ -50,7 +39,10 @@ function App() {
 
   const setSelect = id => {
     const selectObj = catalog.find(item => item.id === id)
+    // setSelectedNode(id)
     setSelectedNode(selectObj)
+    const selectedElements = project.filter(item => item.parent === id)
+    setItemsSelectedNode(selectedElements)
   }
 
 
@@ -89,20 +81,18 @@ function App() {
 
   return (
     <div className="App">
-      <TreeComp
-        array={project}
-        setProject={array => setProject(array)}
-        selectNode={id => setSelect(id)}
-      />
-      {/* <Catalog
-        catalog={catalog}
-        selectNode={id => setSelect(id)}
-        addNewItem={newItem => addNewItem(newItem)}
-        addToProject={addToProject}
-        deleteFromCatalog={deleteFromCatalog}
-      />
-      <Description selectedNode={selectedNode} /> */}
-      <Test />
+      <DndProvider backend={HTML5Backend}>
+        <Catalog
+          catalog={catalog}
+          selectNode={id => setSelect(id)}
+          addNewItem={addNewItem}
+        />
+        <Description
+          selectedNode={selectedNode}
+          addToProject={addToProject}
+          allElements={itemsSelectedNode}
+        />
+      </DndProvider>
     </div>
   );
 }
