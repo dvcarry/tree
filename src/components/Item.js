@@ -2,10 +2,8 @@ import React from 'react'
 import { useDrag } from 'react-dnd'
 
 export const Item = ({data, onclick}) => {
-// console.log("Item -> data", data)
 
     const { title, id, type } = data
-    console.log("Item -> type", type)
 
     const [collectedProps, drag] = useDrag({
         item: { type, title, id }

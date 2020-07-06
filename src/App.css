@@ -16,7 +16,7 @@
 .field {
   border-radius: 3px;
   border: 1px solid gray;
-  height: 200px;
+  /* height: 200px; */
 }
 
 .item {
@@ -26,5 +26,19 @@
 }
 
 .item:hover {
+  font-weight: 500;
+}
+
+.element {
+  border: 1px solid grey;
+  padding: 5px 10px;
+  margin: 4px;
+}
+
+.prop {
+  margin-right: 7px;
+}
+
+.prop:hover {
   font-weight: 500;
 }

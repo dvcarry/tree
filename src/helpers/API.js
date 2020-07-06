@@ -6,7 +6,7 @@ export const fetchGetCatalog = async () => {
     try {
         const data = await fetch(URL + 'catalog');
         const res = await data.json();
-        console.log("fetchGetCatalog -> res", res)
+        // console.log("fetchGetCatalog -> res", res)
         
         return res
     } catch (error) {
@@ -18,7 +18,7 @@ export const fetchGetProject = async () => {
     try {
         const data = await fetch(URL + 'project');
         const res = await data.json();
-        console.log("fetchGetCatalog -> res", res)
+        // console.log("fetchGetCatalog -> res", res)
         
         return res
     } catch (error) {
@@ -36,7 +36,7 @@ export const fetchAddNewItemToCatalog = async (item) => {
             body: JSON.stringify(item)
           });
         const res = await data.json();
-        console.log("fetchGetCatalog -> res", res)        
+        // console.log("fetchGetCatalog -> res", res)        
         return res
     } catch (error) {
         console.log("fetchGetCatalog -> error", error)
@@ -44,7 +44,7 @@ export const fetchAddNewItemToCatalog = async (item) => {
 }
 
 export const fetchAddNewItemToProject = async (item) => {
-console.log("fetchAddNewItemToProject -> item", item)
+// console.log("fetchAddNewItemToProject -> item", item)
     
     try {
         const data = await fetch(URL + 'project', {
@@ -78,7 +78,7 @@ export const fetchChangeParentOfNode = async (parent, node) => {
                 body: JSON.stringify(dataForNewNode)
               });
             const res = await data.json();
-            console.log("fetchGetCatalog -> res", res)        
+            // console.log("fetchGetCatalog -> res", res)        
             return res
         } catch (error) {
             console.log("fetchGetCatalog -> error", error)
@@ -96,7 +96,7 @@ export const fetchChangeParentOfNode = async (parent, node) => {
                 body: JSON.stringify(id)
               });
             const res = await data.json();
-            console.log("fetchGetCatalog -> res", res)        
+            // console.log("fetchGetCatalog -> res", res)        
             return res
         } catch (error) {
             console.log("fetchGetCatalog -> error", error)
@@ -114,7 +114,7 @@ export const fetchChangeParentOfNode = async (parent, node) => {
                 body: JSON.stringify(id)
               });
             const res = await data.json();
-            console.log("fetchGetCatalog -> res", res)        
+            // console.log("fetchGetCatalog -> res", res)        
             return res
         } catch (error) {
             console.log("fetchGetCatalog -> error", error)

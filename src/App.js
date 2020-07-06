@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import './App.css';
 import { Catalog } from './components/Catalog';
@@ -6,15 +6,20 @@ import { Description } from './components/Description';
 import { fetchGetCatalog, fetchAddNewItemToCatalog, fetchAddNewItemToProject, fetchGetProject, fetchDeleteFromCatalog, fetchDeleteFromProject } from './helpers/API';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { Project, ProjectContext } from './context/projectContext';
+
+
 
 
 function App() {
 
   const [selectedNode, setSelectedNode] = useState(null)
-  console.log("App -> selectedNode", selectedNode)
+  // console.log("App -> selectedNode", selectedNode)
   const [catalog, setCatalog] = useState([])
   const [project, setProject] = useState([])
   const [itemsSelectedNode, setItemsSelectedNode] = useState(null)
+
+  // const { project, setProject } = useContext(ProjectContext)
 
 
 
@@ -81,18 +86,21 @@ function App() {
 
   return (
     <div className="App">
-      <DndProvider backend={HTML5Backend}>
-        <Catalog
-          catalog={catalog}
-          selectNode={id => setSelect(id)}
-          addNewItem={addNewItem}
-        />
-        <Description
-          selectedNode={selectedNode}
-          addToProject={addToProject}
-          allElements={itemsSelectedNode}
-        />
-      </DndProvider>
+      <Project>
+        <DndProvider backend={HTML5Backend}>
+          <Catalog
+            catalog={catalog}
+            selectNode={id => setSelect(id)}
+            addNewItem={addNewItem}
+          />
+          <Description
+            selectedNode={selectedNode}
+            addToProject={addToProject}
+            allElements={itemsSelectedNode}
+          />
+        </DndProvider>
+      </Project>
+
     </div>
   );
 }
