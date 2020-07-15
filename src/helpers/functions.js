@@ -1,11 +1,12 @@
 
 
 export const makeNestedChildren = (arr, parent = 0) => {
+console.log("makeNestedChildren -> arr", arr)
     
     let out = []
     for (let i in arr) {
         if (arr[i].parent === parent) {
-            let children = makeNestedChildren(arr, arr[i].id)
+            let children = makeNestedChildren(arr, arr[i].id_element)
 
             if (children.length) {
                 arr[i].children = children
@@ -14,30 +15,32 @@ export const makeNestedChildren = (arr, parent = 0) => {
             out.push(arr[i])
         }
     }
-    const newOut = out.map(item => {
-        
-        let newTitle =''
 
-        if (item.type === 'page') {
-            newTitle = item.title.toUpperCase()
-        } 
-        else if (item.type === 'component') {
-            newTitle = `<${item.title}/>`
-        } else {
-            newTitle = item.title
-        }       
+    return out
+    // const newOut = out.map(item => {
         
-        // = item.type === 'page' ? item.title.toUpperCase() : `<${item.title}/>`
+    //     let newTitle =''
+
+    //     if (item.type === 'page') {
+    //         newTitle = item.title.toUpperCase()
+    //     } 
+    //     else if (item.type === 'component') {
+    //         newTitle = `<${item.title}/>`
+    //     } else {
+    //         newTitle = item.title
+    //     }       
         
-        return {
-            ...item,
-            key: item.id,
-            title: newTitle
-        }
+    //     // = item.type === 'page' ? item.title.toUpperCase() : `<${item.title}/>`
+        
+    //     return {
+    //         ...item,
+    //         key: item.id,
+    //         title: newTitle
+    //     }
 
-    })
+    // })
 
-    return newOut
+    // return newOut
 }
 
 export const makeDepoNode = (array) => {
@@ -76,6 +79,19 @@ export const makeKeysForArray = array => {
     // console.log('resulttt', resultArray)
 
     const result = makeNestedChildren(resultArray)
+
+    return result
+}
+
+
+export const findNested = (id, arr, result = []) => {    
+    
+    for (let i in arr) {
+        if (arr[i].parent === id) {
+            result.push(arr[i].id)
+            findNested(arr[i].id, arr, result)
+        }
+    }
 
     return result
 }

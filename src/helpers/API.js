@@ -62,7 +62,7 @@ export const fetchAddNewItemToProject = async (item) => {
     }
 }
 
-export const fetchChangeParentOfNode = async (parent, node) => { 
+export const fetchChangeParentOfNode = async (node, parent) => { 
     
         const dataForNewNode = {
             parent,

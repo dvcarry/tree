@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useDrag } from 'react-dnd'
+import { SelectedNodeContext } from '../context/selectedNodeContext'
 
-export const Item = ({data, onclick}) => {
+export const Item = ({ data }) => {
+
 
     const { title, id, type } = data
 
+    const { setSelectedNode } = useContext(SelectedNodeContext)
+
     const [collectedProps, drag] = useDrag({
         item: { type, title, id }
-        // item: { type: 'car', title, id }
-      })
+    })
 
     return (
-        <div className='item' ref={drag} onClick={() => onclick(id)}>
+        <span
+            className='item'
+            ref={drag}
+            onClick={() => setSelectedNode(id)}
+        >
+
+            {/* onClick={() => onclick(id)}> */}
             {title}
-        </div>
+        </span>
     )
 }

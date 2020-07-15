@@ -51,6 +51,10 @@ export const AddItemForm = ({ visible, onCreate, onCancel }) => {
                         <Radio value="component">Компонент</Radio>
                         <Radio value="data">Данные</Radio>
                         <Radio value="element">Элемент</Radio>
+                        <Radio value="datas">Массив</Radio>
+                        <Radio value="function">Функция</Radio>
+                        <Radio value="props">Пропсы</Radio>
+                        <Radio value="condition">Условие</Radio>
                     </Radio.Group>
                 </Form.Item>
 

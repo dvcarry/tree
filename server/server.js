@@ -52,9 +52,22 @@ app.put("/project", async (req, res) => {
     }
 })
 
+app.put("/catalog/:id", async (req, res) => {
+
+    const { name, title } = req.body;
+    const { id } = req.params;
+
+    try {
+        const items = await pool.query("UPDATE project SET name = $1, title = $2 WHERE id = $3", [name, title, id])
+        res.json(items.rows)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 app.get("/project", async (req, res) => {
     try {
-        const items = await pool.query("SELECT project.id, catalog.title, catalog.type, project.parent FROM project LEFT JOIN catalog ON project.id_element = catalog.id")
+        const items = await pool.query("SELECT project.id, project.id_element, catalog.title, catalog.type, project.parent FROM project LEFT JOIN catalog ON project.id_element = catalog.id")
         res.json(items.rows)
     } catch (error) {
         console.log(error)

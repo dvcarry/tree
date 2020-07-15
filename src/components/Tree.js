@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Tree } from 'antd';
 import lodash from 'lodash'
 import { makeNestedChildren, makeDepoNode } from '../helpers/functions';
 import { fetchChangeParentOfNode } from '../helpers/API';
+import { ProjectContext } from '../context/projectContext';
 
 
 
@@ -10,15 +11,26 @@ export const TreeComp = ({array, setProject, selectNode}) => {
 
 
     const [treeData, setTreeData] = useState()
+    console.log("TreeComp -> treeData", treeData)
+    const { project, catalog } = useContext(ProjectContext)
+    console.log("TreeComp -> project", project, catalog)
+
+
+    const testData = catalog.map(item => ({...item, parent: 0}))
 
     useEffect(() => {
 
-        const newArray = lodash.cloneDeep(array)
-        const arrayWithDepo = makeDepoNode(newArray)
-        const arrayWithChildren = makeNestedChildren(arrayWithDepo)        
-        setTreeData(makeNestedChildren(arrayWithChildren))
+        const newArray = lodash.cloneDeep(project)
+        console.log("TreeComp -> newArray", newArray)
+        const arrayWithChildren = makeNestedChildren(newArray)        
+        console.log("TreeComp -> arrayWithChildren", arrayWithChildren)
+        setTreeData(arrayWithChildren)
+        // const newArray = lodash.cloneDeep(array)
+        // const arrayWithDepo = makeDepoNode(newArray)
+        // const arrayWithChildren = makeNestedChildren(arrayWithDepo)        
+        // setTreeData(makeNestedChildren(arrayWithChildren))
         
-    }, [array])
+    }, [project])
 
     const onSelect = (selectedKeys, info) => {        
         console.log("onSelect -> info", info)        
@@ -54,7 +66,7 @@ export const TreeComp = ({array, setProject, selectNode}) => {
     return (
         <>
             <Tree
-                treeData={treeData}
+                treeData={testData}
                 showLine
                 draggable
                 onSelect={onSelect}

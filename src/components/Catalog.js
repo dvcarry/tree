@@ -10,7 +10,7 @@ import { ProjectContext } from '../context/projectContext';
 const { TabPane } = Tabs;
 
 // export const Catalog = ({ catalog, selectNode, addNewItem, addToProject, deleteFromCatalog }) => {
-export const Catalog = ({ selectNode, addNewItem, addToProject, deleteFromCatalog }) => {
+export const Catalog = ({ addNewItem, addToProject, deleteFromCatalog }) => {
 
     const [modal, setModal] = useState(false)
     
@@ -48,7 +48,7 @@ export const Catalog = ({ selectNode, addNewItem, addToProject, deleteFromCatalo
 
             const itemsElements = catalog
                 .filter(el => el.type === item)
-                .map(filtredItem => <Item data={filtredItem} key={filtredItem.id} onclick={(filtredItem) => selectNode(filtredItem)}/>)
+                .map(filtredItem => <Item data={filtredItem} key={filtredItem.id} />)
 
             return (
                 <TabPane tab={item} key={item}>
@@ -56,17 +56,13 @@ export const Catalog = ({ selectNode, addNewItem, addToProject, deleteFromCatalo
                 </TabPane>
             )
         })
-
     }
-
-
-
 
     return (
         <div>
             <button onClick={() => setModal(true)}>Add</button>
 
-            <Tabs defaultActiveKey="1">
+            <Tabs defaultActiveKey="1" tabPosition='left'>
                 {tabs}
             </Tabs>
 
