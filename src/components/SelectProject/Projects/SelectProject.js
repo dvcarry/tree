@@ -1,34 +1,34 @@
 import { Button } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchAddNewProject, fetchGetAllProjects } from '../../../helpers/API';
-import { getProjectsThunkCreator } from '../../../redux/reducers/ProjectsReducer';
+import { addProjectThunk, getProjects } from '../../../redux/reducers/ProjectsReducer';
+// import { getProjectsThunkCreator } from '../../../redux/reducers/ProjectsReducer';
 import { AddProject } from '../AddProject/AddProject';
 import { Project } from '../Project/Project';
 import './Projects.css'
 
 export const SelectProject = () => {
 
-    const [projects, setProjects] = useState()
     const [modal, setModal] = useState(false)
 
+    const projectsData = useSelector(state => state.projectsReducer)
+
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        const getProjects = () => {
-            const projects = getProjectsThunkCreator(1)
-            console.log("getProjects -> projects", projects)
-            // setProjects(projects)
-        }
-        getProjects()
+        console.log('effect')
+        dispatch(getProjects())
     }, [])
 
     const createProject = async values => {
-        const newProject = await fetchAddNewProject(values)
-        setProjects([...projects, newProject])
+        dispatch(addProjectThunk(values))
         setModal(false)
     }
 
     return (
-        <div class="Projects" uk-grid>
+        <div className="Projects">
             <Button
                 onClick={() => setModal(true)}
             >
@@ -36,15 +36,16 @@ export const SelectProject = () => {
             </Button>
 
             {
-                projects && projects.map(project => (
-                    <Project
-                        key={project.id}
-                        {...project}
-                    />
+                projectsData.loading
+                    ? <p>Loading</p>
+                    : projectsData.projects.map(project => (
+                        <Project
+                            key={project.id}
+                            {...project}
+                        />
 
-                ))
+                    ))
             }
-            {/* <Modal /> */}
             <AddProject
                 visible={modal}
                 onCreate={createProject}

@@ -158,5 +158,13 @@ export const projectsAPI = {
         } catch (error) {
             console.log(error)
         }
+    },
+    async fetchAddProject(project) {
+        try {
+            const { data } = await Axios.post('projects', project)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
     }
 }

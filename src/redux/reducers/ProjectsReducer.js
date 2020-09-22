@@ -1,68 +1,51 @@
 import { projectsAPI } from "../../helpers/API"
+import { createAction, createReducer } from "@reduxjs/toolkit"
 
 ////////////////////// CONSTANT ///////////////////////////
-const TOGGLE_LOADING = 'TOGGLE_LOADING'
-const SET_PROJECTS = 'SET_PROJECTS'
+const toggleFetching = createAction('TOGGLE_FETCHING')
+const setProjects = createAction('SET_PROJECTS')
+const addProject = createAction('ADD_PROJECT')
 
 
 ////////////////////// STATE ///////////////////////////
 const initialState = {
     projects: [],
     loading: false,
-	currentProject: null
+    currentProject: null
 }
 
 
 ////////////////////// REDUCER ///////////////////////////
-export const projectsReducer = (state = initialState, action) => {
-    console.log(action)
-	switch (action.type) {
-		case TOGGLE_LOADING:			
-			return {...state, loading: action.payload}
-		case SET_PROJECTS:			
-			return {...state, projects: action.payload}
-		default:
-			return state;
-	}
+export const projectsReducer = createReducer(initialState, {
+    [toggleFetching]: (state) => {
+        state.loading = !state.loading
+    },
+    [setProjects]: (state, action) => {
+        state.projects = action.payload
+    },
+    [addProject]: (state, action) => {
+        state.projects = [...state.projects, action.payload]
+    },
+})
+
+
+
+////////////////////// THUNK ///////////////////////////
+
+export const getProjects = () => dispatch => {   
+    dispatch(toggleFetching())
+    projectsAPI.getProjects()
+        .then(response => {
+            dispatch(setProjects(response))
+            dispatch(toggleFetching())
+        })
+}
+
+export const addProjectThunk = (project) => dispatch => {   
+    projectsAPI.fetchAddProject(project)
+        .then(response => {
+            dispatch(addProject(response))
+        })
 }
 
 
-////////////////////// ACTIONS ///////////////////////////
-
-const toggleLoadingAC = payload => {
-console.log("payload", payload)
-    return {
-        type: TOGGLE_LOADING,
-        loading: payload
-    }
-}
-
-const setProjectsAC = payload => {
-    return {
-        type: TOGGLE_LOADING,
-        payload
-    }
-}
-
-
-
-// export const setCurrentUserInfo = currentUserInfo => ({type: SET_USER_INFO, currentUserInfo});
-
-export const getProjectsThunkCreator = () => {
-	return (dispatch) => {
-        console.log('started')
-        const a = toggleLoadingAC(true)
-        console.log("getProjectsThunkCreator -> a", a)
-        
-        dispatch(toggleLoadingAC(true));
-
-        // projectsAPI.getProjects().then(data => {
-        //     dispatch(toggleLoadingAC(false));
-        //     dispatch(setProjectsAC(data));
-        // })
-		// userAPI.getUsers(currentPage, pageSize).then(data => {
-		// 	dispatch(toggleIsFetching(false));
-		// 	dispatch(setUserd(data.item));
-		// });
-	}
-}
