@@ -2,8 +2,8 @@
   padding: 40px;
   display: grid;
   /* grid-template-columns: repeat(2, 1fr); 1fr, 2fr */
-  grid-template-columns: 1fr 4fr;
-  max-width: 1200px;
+  grid-template-columns: 1fr 6fr;
+  /* max-width: 1200px; */
   margin: 0 auto;
 }
 
@@ -100,4 +100,9 @@
 .collapse {
   cursor: pointer;
   transform: rotate(90deg);
+}
+
+.ant-tabs-content {
+  display: block;
+  width: 300px;
 }

@@ -16,7 +16,6 @@ const data = [
 export const TreeComp = () => {
 
     const { project, addToProject, catalog, deleteFromProject, changeParentInProject } = useContext(ProjectContext)
-    console.log("TreeComp -> project", project)
     const [tree, setTree] = useState(data)    
 
     const out = []
@@ -35,7 +34,6 @@ export const TreeComp = () => {
 
     useEffect(() => {
         const newData = getNestedChildren([...data, ...project])
-        console.log("TreeComp -> newData", newData)
         setTree(newData)
     }, [data, project])
     
@@ -48,14 +46,12 @@ export const TreeComp = () => {
 
     const addNew = async (elementId, parentId) => {
         const newItem = await addToProject(elementId, parentId)
-        console.log("addNew -> newItem", newItem)
         setTree([...tree, newItem])
         
     }
 
     const collapseHandler = id => {
         const arrayOfNestedItems = findNested(id, tree)
-        console.log("App -> arrayOfNestedItems", arrayOfNestedItems)
 
         const arrayChangedOpened = tree.map(item => item.id === id ? { ...item, opened: !item.opened } : { ...item })
         const newData = arrayChangedOpened.map(item => {
@@ -66,7 +62,6 @@ export const TreeComp = () => {
         setTree(newData)
     }
 
-    console.log("TreeComp -> tree", tree)
 
     return (
         <div>

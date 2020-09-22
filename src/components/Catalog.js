@@ -60,7 +60,7 @@ export const Catalog = ({ addNewItem, addToProject, deleteFromCatalog }) => {
 
     return (
         <div>
-            <button onClick={() => setModal(true)}>Add</button>
+            {/* <button onClick={() => setModal(true)}>Add</button> */}
 
             <Tabs defaultActiveKey="1" tabPosition='left'>
                 {tabs}

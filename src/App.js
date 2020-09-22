@@ -1,9 +1,11 @@
 import React from 'react';
-import 'antd/dist/antd.css'; 
+import 'antd/dist/antd.css';
 import './App.css';
 import { Project } from './context/projectContext';
 import { SelectedNode } from './context/selectedNodeContext';
 import { Main } from './components/Main';
+import { SelectProject } from './components/SelectProject/Projects/SelectProject';
+import { Route, Switch } from 'react-router-dom';
 
 
 
@@ -83,11 +85,20 @@ function App() {
 
 
   return (
-      <Project>
-        <SelectedNode>
-          <Main />
-        </SelectedNode>
-      </Project>
+    <>    
+      <Switch>
+        <Route exact path='/' component={SelectProject} />
+        
+      </Switch>    
+
+      {/* <SelectProject />
+        <Project>
+          <SelectedNode>
+            <Main />
+          </SelectedNode>
+        </Project> */}
+    </>
+
   );
 }
 

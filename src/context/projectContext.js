@@ -10,7 +10,7 @@ export const Project = ({ children }) => {
   const [project, setProject] = useState([])
 
   const orderForProject = array => {
-    const orderedProject = array.sort((a , b) => order.indexOf(a.type) - order.indexOf(b.type))
+    const orderedProject = array.sort((a, b) => order.indexOf(a.type) - order.indexOf(b.type))
     setProject(orderedProject)
   }
 
@@ -62,7 +62,7 @@ export const Project = ({ children }) => {
     <ProjectContext.Provider value={{
       catalog, project,
       addToProject, setCatalog, addToCatalog,
-      setProject, deleteFromProject, deleteFromCatalog, 
+      setProject, deleteFromProject, deleteFromCatalog,
       changeParentInProject
     }}>
       {children}

@@ -99,6 +99,28 @@ app.delete("/project", async (req, res) => {
 })
 
 
+app.post("/projects", async (req, res) => {
+    try {
+        const { name, description } = req.body
+        const newTodo = await pool.query(
+            "INSERT INTO projects (name, description, user_id) VALUES($1, $2, $3) RETURNING *",
+            [name, description, 1]);
+        res.json(newTodo.rows[0])
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+app.get("/projects", async (req, res) => {
+    try {
+        const items = await pool.query("SELECT * FROM projects", [])
+        res.json(items.rows)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
 // START
 app.listen(5000, () => {
     console.log('server start')
