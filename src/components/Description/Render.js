@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Item } from '../Item'
+// import { Item } from '../Item'
 import { useDrop } from 'react-dnd'
 import { Element } from './Element'
 import { ProjectContext } from '../../context/projectContext'

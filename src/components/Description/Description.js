@@ -9,7 +9,7 @@ import { Field } from './Field'
 import { Arrays } from './Arrays'
 import { SelectedNodeContext } from '../../context/selectedNodeContext'
 import { Component } from './Component'
-import { Data } from './Data'
+// import { Data } from './Data'
 
 // export const Description = ({ selectedNode, addToProject, allElements }) => {
 export const Description = ({ addToProject, allElements }) => {
@@ -120,7 +120,7 @@ export const Description = ({ addToProject, allElements }) => {
 
     const router = {
         component: <Component nodeInfo={nodeInfo} />,
-        data: <Data />
+        // data: <Data />
     }
 
 

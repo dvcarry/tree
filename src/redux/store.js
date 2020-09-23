@@ -1,4 +1,5 @@
 import { projectsReducer } from "./reducers/ProjectsReducer"
+import { catalogReducer } from "./reducers/CatalogReducer"
 // import { createStore, applyMiddleware, combineReducers } from "redux"
 // import { composeWithDevTools } from "redux-devtools-extension"
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
@@ -16,7 +17,8 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 export const store = configureStore({
 	reducer: {
-		projectsReducer
+		projectsReducer,
+		catalogReducer
 	},
 	middleware: getDefaultMiddleware()
 })

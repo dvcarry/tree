@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { get } from "lodash";
 
 // const URL = 'http://localhost:3000/'
 Axios.defaults.baseURL = 'http://localhost:3000/';
@@ -123,31 +124,63 @@ export const fetchDeleteFromProject = async id => {
     }
 }
 
-export const fetchGetAllProjects = async () => {
-    try {
-        const data = await fetch(URL + 'projects');
-        const res = await data.json();
-        return res
-    } catch (error) {
-        console.log("fetchGetCatalog -> error", error)
+// export const fetchGetAllProjects = async () => {
+//     try {
+//         const data = await fetch(URL + 'projects');
+//         const res = await data.json();
+//         return res
+//     } catch (error) {
+//         console.log("fetchGetCatalog -> error", error)
+//     }
+// }
+
+// export const fetchAddNewProject = async item => {
+//     try {
+//         const data = await fetch(URL + 'projects', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json;charset=utf-8'
+//             },
+//             body: JSON.stringify(item)
+//         });
+//         const res = await data.json();
+//         // console.log("fetchGetCatalog -> res", res)        
+//         return res
+//     } catch (error) {
+//         console.log("fetchGetCatalog -> error", error)
+//     }
+// }
+
+export const treeAPI = {
+    async get(project_id) {
+        try {
+            const { data } = await Axios.get(`tree/${project_id}`)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
-export const fetchAddNewProject = async item => {
-    try {
-        const data = await fetch(URL + 'projects', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(item)
-        });
-        const res = await data.json();
-        // console.log("fetchGetCatalog -> res", res)        
-        return res
-    } catch (error) {
-        console.log("fetchGetCatalog -> error", error)
-    }
+
+
+export const catalogAPI = {
+    async getAll(project_id) {
+        try {
+            const { data } = await Axios.get(`catalog/${project_id}`)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    async add(project_id, item) {
+        try {
+            const { data } = await Axios.post(`catalog/${project_id}`, item)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    },
 }
 
 export const projectsAPI = {

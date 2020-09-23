@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Catalog } from './Catalog';
+import { Catalog } from './Catalog/Catalog/Catalog';
 import { Description } from './Description/Description';
 import { fetchGetCatalog, fetchAddNewItemToCatalog, fetchGetProject } from '../helpers/API';
 import { DndProvider } from 'react-dnd'
@@ -17,26 +17,26 @@ export const Main = () => {
   // const [project, setProject] = useState([])
 
 
-  const { project, catalog, setProject, setCatalog } = useContext(ProjectContext)
+  // const { project, catalog, setProject, setCatalog } = useContext(ProjectContext)
 
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const newProject = await fetchGetProject()
-      setProject(newProject)
-    }
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const newProject = await fetchGetProject()
+  //     setProject(newProject)
+  //   }
+  //   fetchData()
+  // }, [])
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const newCatalog = await fetchGetCatalog()
-      setCatalog(newCatalog)
-    }
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const newCatalog = await fetchGetCatalog()
+  //     setCatalog(newCatalog)
+  //   }
+  //   fetchData()
+  // }, [])
 
 
 
@@ -49,17 +49,17 @@ export const Main = () => {
   // }
 
 
-  const addNewItem = async newItem => {
+  // const addNewItem = async newItem => {
 
-    let itemWithUpLetter = { ...newItem }
-    if (newItem.type === 'component') {
-      const newTitle = newItem.title[0].toUpperCase() + newItem.title.slice(1)
-      itemWithUpLetter.title = newTitle
-    }
+  //   let itemWithUpLetter = { ...newItem }
+  //   if (newItem.type === 'component') {
+  //     const newTitle = newItem.title[0].toUpperCase() + newItem.title.slice(1)
+  //     itemWithUpLetter.title = newTitle
+  //   }
 
-    const newItemFromDb = await fetchAddNewItemToCatalog(itemWithUpLetter)
-    setCatalog([...catalog, newItemFromDb])
-  }
+  //   const newItemFromDb = await fetchAddNewItemToCatalog(itemWithUpLetter)
+  //   setCatalog([...catalog, newItemFromDb])
+  // }
 
   // const addToProject = async () => {
   //   const parentId = selectedNode.type === 'page' ? 0 : 999999999
@@ -87,9 +87,9 @@ export const Main = () => {
       {/* <Project> */}
       <DndProvider backend={HTML5Backend}>
         <Catalog
-          catalog={catalog}
+          // catalog={catalog}
           //   selectNode={id => setSelect(id)}
-          addNewItem={addNewItem}
+          // addNewItem={addNewItem}
         />
         <TreeComp />
         {/* <Description

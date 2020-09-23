@@ -43,6 +43,22 @@ console.log("makeNestedChildren -> arr", arr)
     // return newOut
 }
 
+
+const out = []
+
+export function getNestedChildren(arr, parent = 0, span = 0) {
+    for (let i in arr) {
+        if (arr[i].parent === parent) {
+            out.push({ ...arr[i], spans: span, visible: true, opened: true })
+            ++span
+            getNestedChildren(arr, arr[i].id, span)
+            --span
+        }
+    }
+    return out
+}
+
+
 export const makeDepoNode = (array) => {
     const depoNode = { id: 999999999, title: '-DEPO-', type: 'depo', parent: 0 }
     return [...array, depoNode]

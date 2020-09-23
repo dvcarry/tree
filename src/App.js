@@ -6,6 +6,7 @@ import { SelectedNode } from './context/selectedNodeContext';
 import { Main } from './components/Main';
 import { SelectProject } from './components/SelectProject/Projects/SelectProject';
 import { Route, Switch } from 'react-router-dom';
+import { Catalog } from './components/Catalog/Catalog/Catalog';
 
 
 
@@ -88,7 +89,8 @@ function App() {
     <>    
       <Switch>
         <Route exact path='/' component={SelectProject} />
-        
+        <Route path='/:project_id' component={Main} />
+
       </Switch>    
 
       {/* <SelectProject />

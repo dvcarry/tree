@@ -6,23 +6,23 @@ import { Garage } from './Garage'
 import { Description } from './Description'
 
 
-export const Test = () => {
+// export const Test = () => {
     
-    const carsArray = Array(7).fill().map((item, index) => index)
+//     const carsArray = Array(7).fill().map((item, index) => index)
 
-    const cars = carsArray.map(item => <Car title={`Car #${item}`}/>)
+//     const cars = carsArray.map(item => <Car title={`Car #${item}`}/>)
     
-    return (
+//     return (
 
-            <div>
-                {/* <Car title={'wwww'}/>
-                <Car title={'dddd'}/> */}
-                {/* {cars} */}
-                {/* <Garage /> */}
-                <Description />
-            </div>
+//             <div>
+//                 {/* <Car title={'wwww'}/>
+//                 <Car title={'dddd'}/> */}
+//                 {/* {cars} */}
+//                 {/* <Garage /> */}
+//                 <Description />
+//             </div>
             
                 
 
-    )
-}
+//     )
+// }

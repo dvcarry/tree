@@ -7,46 +7,29 @@ const pool = require('./db');
 
 app.use(express.json({ extended: true }))
 
-app.post("/catalog", async (req, res) => {
+
+// CATALOG
+
+app.get("/catalog/:project_id", async (req, res) => {
+
+    const { project_id } = req.params;
+
+    try {
+        const items = await pool.query("SELECT * FROM catalog WHERE project_id=$1", [project_id])
+        res.json(items.rows)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+app.post("/catalog/:project_id", async (req, res) => {
     try {
         const { title, type, description } = req.body
+        const { project_id } = req.params;
         const newTodo = await pool.query(
-            "INSERT INTO catalog (title, type, description) VALUES($1, $2, $3) RETURNING *",
-            [title, type, description]);
+            "INSERT INTO catalog (title, type, description, project_id) VALUES($1, $2, $3, $4) RETURNING *",
+            [title, type, description, project_id]);
         res.json(newTodo.rows[0])
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-app.post("/project", async (req, res) => {
-    try {
-        const { id_element, parent } = req.body
-        const newTodo = await pool.query(
-            "INSERT INTO project (id_element, parent) VALUES($1, $2) RETURNING *",
-            [id_element, parent]);
-        res.json(newTodo.rows[0])
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-app.get("/catalog", async (req, res) => {
-    try {
-        const items = await pool.query("SELECT * FROM catalog")
-        res.json(items.rows)
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-app.put("/project", async (req, res) => {
-
-    const { parent, node } = req.body;
-
-    try {
-        const items = await pool.query("UPDATE project SET parent = $1 WHERE id = $2", [parent, node])
-        res.json(items.rows)
     } catch (error) {
         console.log(error)
     }
@@ -65,15 +48,6 @@ app.put("/catalog/:id", async (req, res) => {
     }
 })
 
-app.get("/project", async (req, res) => {
-    try {
-        const items = await pool.query("SELECT project.id, project.id_element, catalog.title, catalog.type, project.parent FROM project LEFT JOIN catalog ON project.id_element = catalog.id")
-        res.json(items.rows)
-    } catch (error) {
-        console.log(error)
-    }
-})
-
 app.delete("/catalog", async (req, res) => {
 
     const { id } = req.body;
@@ -85,6 +59,53 @@ app.delete("/catalog", async (req, res) => {
         console.log(error)
     }
 })
+
+
+// TREE
+
+app.get("/tree/:project_id", async (req, res) => {
+
+    const { project_id } = req.params
+
+    try {
+        const items = await pool.query("SELECT project.id, project.id_element, catalog.title, catalog.type, project.parent FROM project LEFT JOIN catalog ON project.id_element = catalog.id WHERE catalog.project_id = $1", [project_id])
+        res.json(items.rows)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+app.post("/project/", async (req, res) => {
+    try {
+        const { id_element, parent } = req.body
+        const newTodo = await pool.query(
+            "INSERT INTO project (id_element, parent) VALUES($1, $2) RETURNING *",
+            [id_element, parent]);
+        res.json(newTodo.rows[0])
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+
+app.put("/project", async (req, res) => {
+
+    const { parent, node } = req.body;
+
+    try {
+        const items = await pool.query("UPDATE project SET parent = $1 WHERE id = $2", [parent, node])
+        res.json(items.rows)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+
+
+
+
 
 app.delete("/project", async (req, res) => {
 
@@ -98,6 +119,8 @@ app.delete("/project", async (req, res) => {
     }
 })
 
+
+// PROJECTS
 
 app.post("/projects", async (req, res) => {
     try {

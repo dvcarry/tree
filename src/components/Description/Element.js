@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { ProjectContext } from '../../context/projectContext'
-import { Item } from '../Item'
+// import { Item } from '../Item'
 import { Prop } from './Prop'
 import { SelectedNodeContext } from '../../context/selectedNodeContext'
 
