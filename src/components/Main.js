@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Catalog } from './Catalog/Catalog/Catalog';
 import { Description } from './Description/Description';
-import { fetchGetCatalog, fetchAddNewItemToCatalog, fetchGetProject } from '../helpers/API';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Project, ProjectContext } from '../context/projectContext';
 import { SelectedNode } from '../context/selectedNodeContext';
 import { TreeComp } from './Tree/TreeComp'
 
@@ -87,9 +85,9 @@ export const Main = () => {
       {/* <Project> */}
       <DndProvider backend={HTML5Backend}>
         <Catalog
-          // catalog={catalog}
-          //   selectNode={id => setSelect(id)}
-          // addNewItem={addNewItem}
+        // catalog={catalog}
+        //   selectNode={id => setSelect(id)}
+        // addNewItem={addNewItem}
         />
         <TreeComp />
         {/* <Description
@@ -97,6 +95,7 @@ export const Main = () => {
               addToProject={addToProject}
               allElements={itemsSelectedNode}
             /> */}
+        <Description />
 
       </DndProvider>
       {/* </Project> */}

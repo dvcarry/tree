@@ -1,0 +1,35 @@
+.tree {
+    padding: 15px;
+}
+
+/* .collapsed {
+    transform: rotate(90deg);
+} */
+
+.active {
+    background-color: wheat;
+}
+
+.empty {
+    display: inline-block;
+    width: 25px;
+    /* height: 20px; */
+  }
+
+/* .last {
+    border-bottom: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    margin: 3px 0;
+} */
+
+.collapse {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  
+  .collapsed {
+    transform: rotate(-90deg);
+    font-weight: 700;
+  }

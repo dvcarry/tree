@@ -5,65 +5,65 @@ import { get } from "lodash";
 Axios.defaults.baseURL = 'http://localhost:3000/';
 
 
-export const fetchGetCatalog = async () => {
-    try {
-        const data = await fetch(URL + 'catalog');
-        const res = await data.json();
-        // console.log("fetchGetCatalog -> res", res)
+// export const fetchGetCatalog = async () => {
+//     try {
+//         const data = await fetch(URL + 'catalog');
+//         const res = await data.json();
+//         // console.log("fetchGetCatalog -> res", res)
 
-        return res
-    } catch (error) {
-        console.log("fetchGetCatalog -> error", error)
-    }
-}
+//         return res
+//     } catch (error) {
+//         console.log("fetchGetCatalog -> error", error)
+//     }
+// }
 
-export const fetchGetProject = async () => {
-    try {
-        const data = await fetch(URL + 'project');
-        const res = await data.json();
-        // console.log("fetchGetCatalog -> res", res)
+// export const fetchGetProject = async () => {
+//     try {
+//         const data = await fetch(URL + 'project');
+//         const res = await data.json();
+//         // console.log("fetchGetCatalog -> res", res)
 
-        return res
-    } catch (error) {
-        console.log("fetchGetCatalog -> error", error)
-    }
-}
+//         return res
+//     } catch (error) {
+//         console.log("fetchGetCatalog -> error", error)
+//     }
+// }
 
-export const fetchAddNewItemToCatalog = async (item) => {
-    try {
-        const data = await fetch(URL + 'catalog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(item)
-        });
-        const res = await data.json();
-        // console.log("fetchGetCatalog -> res", res)        
-        return res
-    } catch (error) {
-        console.log("fetchGetCatalog -> error", error)
-    }
-}
+// export const fetchAddNewItemToCatalog = async (item) => {
+//     try {
+//         const data = await fetch(URL + 'catalog', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json;charset=utf-8'
+//             },
+//             body: JSON.stringify(item)
+//         });
+//         const res = await data.json();
+//         // console.log("fetchGetCatalog -> res", res)        
+//         return res
+//     } catch (error) {
+//         console.log("fetchGetCatalog -> error", error)
+//     }
+// }
 
-export const fetchAddNewItemToProject = async (item) => {
-    // console.log("fetchAddNewItemToProject -> item", item)
+// export const fetchAddNewItemToProject = async (item) => {
+//     // console.log("fetchAddNewItemToProject -> item", item)
 
-    try {
-        const data = await fetch(URL + 'project', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(item)
-        });
-        const res = await data.json();
-        console.log("fetchGetCatalog -> res", res)
-        return res
-    } catch (error) {
-        console.log("fetchGetCatalog -> error", error)
-    }
-}
+//     try {
+//         const data = await fetch(URL + 'project', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json;charset=utf-8'
+//             },
+//             body: JSON.stringify(item)
+//         });
+//         const res = await data.json();
+//         console.log("fetchGetCatalog -> res", res)
+//         return res
+//     } catch (error) {
+//         console.log("fetchGetCatalog -> error", error)
+//     }
+// }
 
 export const fetchChangeParentOfNode = async (node, parent) => {
 
@@ -106,23 +106,23 @@ export const fetchDeleteFromCatalog = async (id) => {
     }
 }
 
-export const fetchDeleteFromProject = async id => {
+// export const fetchDeleteFromProject = async id => {
 
-    try {
-        const data = await fetch(URL + 'project', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(id)
-        });
-        const res = await data.json();
-        // console.log("fetchGetCatalog -> res", res)        
-        return res
-    } catch (error) {
-        console.log("fetchGetCatalog -> error", error)
-    }
-}
+//     try {
+//         const data = await fetch(URL + 'project', {
+//             method: 'DELETE',
+//             headers: {
+//                 'Content-Type': 'application/json;charset=utf-8'
+//             },
+//             body: JSON.stringify(id)
+//         });
+//         const res = await data.json();
+//         // console.log("fetchGetCatalog -> res", res)        
+//         return res
+//     } catch (error) {
+//         console.log("fetchGetCatalog -> error", error)
+//     }
+// }
 
 // export const fetchGetAllProjects = async () => {
 //     try {
@@ -159,7 +159,37 @@ export const treeAPI = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+    async add(item) {
+        try {
+            const { data } = await Axios.post(`tree`, item)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    async delete(id) {
+        try {
+            const { data } = await Axios.delete(`tree/${id}`)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    async changeParent(currentId, newParentId) {
+
+        const dataForNewNode = {
+            currentId, newParentId
+        }
+        console.log("changeParent -> dataForNewNode", dataForNewNode)
+
+        try {
+            const { data } = await Axios.put('tree', dataForNewNode)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    },
 }
 
 

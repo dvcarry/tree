@@ -1,10 +1,7 @@
 import { Button } from 'antd';
-import Modal from 'antd/lib/modal/Modal';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAddNewProject, fetchGetAllProjects } from '../../../helpers/API';
 import { addProjectThunk, getProjects } from '../../../redux/reducers/ProjectsReducer';
-// import { getProjectsThunkCreator } from '../../../redux/reducers/ProjectsReducer';
 import { AddProject } from '../AddProject/AddProject';
 import { Project } from '../Project/Project';
 import './Projects.css'
@@ -18,7 +15,6 @@ export const SelectProject = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log('effect')
         dispatch(getProjects())
     }, [])
 

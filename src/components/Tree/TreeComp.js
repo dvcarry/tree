@@ -1,22 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { TreeItem } from './TreeItem';
-import { findNested, getNestedChildren } from '../../helpers/functions';
-import { ProjectContext } from '../../context/projectContext';
 import { useSelector } from 'react-redux';
+import { addTreeItemThunk } from '../../redux/reducers/CatalogReducer';
 
-const data = [    
-    {
-        id: 1,
-        type: 'component',
-        title: 'Index',
-        parent: 0,
-    }
-]
+
 
 export const TreeComp = () => {
 
     const tree = useSelector(state => state.catalogReducer.tree)
-    console.log("TreeComp -> tree", tree)
 
     // const { project, addToProject, catalog, deleteFromProject, changeParentInProject } = useContext(ProjectContext)
     // const [tree, setTree] = useState(data)    
@@ -46,15 +37,17 @@ export const TreeComp = () => {
 
     // const changeParent = (id, parentId) => {
     //     const newTree = tree.map(item => item.id === id ? { ...item, parent: parentId } : { ...item })
-    //     const newNewTree = getNestedChildren(newTree)
+    //     // const newNewTree = getNestedChildren(newTree) 
     //     setTree(newNewTree)
     // }
 
-    // const addNew = async (elementId, parentId) => {
-    //     const newItem = await addToProject(elementId, parentId)
-    //     setTree([...tree, newItem])
+    const addNew = async (elementId, parentId) => {
         
-    // }
+        // addTreeItemThunk()
+        // const newItem = await addToProject(elementId, parentId)
+
+        // setTree([...tree, newItem])        
+    }
 
     // const collapseHandler = id => {
     //     const arrayOfNestedItems = findNested(id, tree)
@@ -70,15 +63,20 @@ export const TreeComp = () => {
 
 
     return (
-        <div>
+        <div className='tree'>
             {
                 tree && tree.map(item => {
+
+                    const hasChildren = tree.find(treeItem => treeItem.parent === item.id)
+
                     return (
                         <TreeItem
                             {...item}
                             // click={collapseHandler}
                             // changeParent={changeParent}
-                            // addNew={addNew}
+                            addNew={addNew}
+                            key={item.id}
+                            hasChildren={hasChildren}
                             // deleteFromProject={deleteFromProject}
                             // changeParentInProject={changeParentInProject}
                         />

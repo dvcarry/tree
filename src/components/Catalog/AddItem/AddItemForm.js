@@ -1,15 +1,15 @@
 import React from 'react';
-import { Modal, Form, Input, Radio } from 'antd';
+import { Modal, Form, Input } from 'antd';
 const { TextArea } = Input;
 
-export const AddItemForm = ({ visible, onCreate, onCancel }) => {
+export const AddItemForm = ({ visible, onCreate, onCancel, type }) => {
 
     const [form] = Form.useForm();
 
     return (
         <Modal
             visible={visible}
-            title="Создать новый элемент"
+            title={`Создать новый элемент ${type.toUpperCase()}`}
             okText="Создать"
             cancelText="Отмена"
             onCancel={onCancel}
@@ -34,7 +34,7 @@ export const AddItemForm = ({ visible, onCreate, onCancel }) => {
                 }}
             >
 
-                <Form.Item
+                {/* <Form.Item
                     name="type"
                     className="collection-create-form_last-form-item"
                     label="Тип сущности"
@@ -56,7 +56,7 @@ export const AddItemForm = ({ visible, onCreate, onCancel }) => {
                         <Radio value="props">Пропсы</Radio>
                         <Radio value="condition">Условие</Radio>
                     </Radio.Group>
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item
                     name="description"
